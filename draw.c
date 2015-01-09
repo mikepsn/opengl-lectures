@@ -1,0 +1,4 @@
+ClearTheScreen();
+DrawTheScene();
+CompleteDrawing();
+SwapBuffers();
