@@ -1,0 +1,1 @@
+glTranslatef(x, y, z);

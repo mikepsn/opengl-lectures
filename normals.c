@@ -1,0 +1,10 @@
+glBegin(GL_POLYGON); 
+    glNormal3fv(n0); 
+    glVertex3fv(v0); 
+    glNormal3fv(n1); 
+    glVertex3fv(v1); 
+    glNormal3fv(n2); 
+    glVertex3fv(v2); 
+    glNormal3fv(n3); 
+    glVertex3fv(v3);
+glEnd();

@@ -1,0 +1,1 @@
+glScale(x, y, z);

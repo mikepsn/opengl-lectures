@@ -294,24 +294,131 @@
 \end{frame} 
 
 \begin{frame}{Perspective Projection (glFrustrum)}
+    \showcode{frustrum.c} 
 \end{frame} 
 
 \begin{frame}{Perspective Projection (gluPerspective) from GLU} 
+    \showcode{perspective.c} 
+    \begin{itemize} 
+        \item \texttt{fovy} : field of view in degrees, in the y direction
+        \item \texttt{aspect} : aspect ratio that determines the field of view in
+          the x direction (ratio of width to height)
+    \end{itemize} 
 \end{frame} 
 
 \begin{frame}{Orthographics (Parallel) Projection - glOrtho} 
+    \showcode{ortho.c} 
 \end{frame} 
 
 \begin{frame}{gluLookAt}
+    Specifies the camera position, the point where the camera is pointing, 
+    and the orientation vector of the camera.
+    \showcode{lookat.c} 
 \end{frame} 
 
 \begin{frame}{Translation Transformation}
+    \showcode{translate.c} 
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+            \begin{equation*}
+                T = \left(
+                        \begin{array}{cccc}
+                            1   & 0     & 0     & x \\
+                            0   & 1     & 0     & y \\
+                            0   & 0     & 1     & z \\
+                            0   & 0     & 0     & 1
+                        \end{array} 
+                    \right)
+            \end{equation*} 
+        \column{0.5\textwidth}
+            \begin{equation*}
+               T^{-1} = \left(
+                        \begin{array}{cccc}
+                            1   & 0     & 0     & -x \\
+                            0   & 1     & 0     & -y \\
+                            0   & 0     & 1     & -z \\
+                            0   & 0     & 0     &  1
+                        \end{array} 
+                    \right)
+            \end{equation*} 
+    \end{columns} 
+    \begin{equation*}
+        v' = T v
+    \end{equation*} 
 \end{frame} 
 
 \begin{frame}{Rotation Transformations} 
+    \showcode{rotate.c} 
+    Specifies an angle and an axis (x,y,z) to rotate around.
+\end{frame} 
+
+\begin{frame}{Rotation Matrices} 
+        \begin{equation*} 
+        \texttt{glRotate3f($\alpha$, 1, 0, 0)} :
+            R_x(\alpha) = \left(
+                        \begin{array}{cccc}
+                            1   & 0             & 0                 & 0 \\
+                            0   & \cos(\alpha)  & -\sin(\alpha)     & 0 \\
+                            0   & \sin(\alpha)  &  \cos(\alpha)    & 0 \\
+                            0   & 0             & 0                 & 1
+                        \end{array} 
+                    \right)
+        \end{equation*} 
+
+        \begin{equation*} 
+        \texttt{glRotate3f($\alpha$, 0, 1, 0)} :
+            R_y(\alpha) = \left(
+                        \begin{array}{cccc}
+                            \cos(\alpha)    & 0             & \sin(\alpha)      & 0 \\
+                            0               & 1             & 0                 & 0 \\
+                            -\sin(\alpha)   & 0             & \cos(\alpha)      & 0 \\
+                            0               & 0             & 0                 & 1
+                        \end{array} 
+                    \right)
+        \end{equation*} 
+
+        \begin{equation*} 
+        \texttt{glRotate3f($\alpha$, 0, 0, 1)} :
+            R_z(\alpha) = \left(
+                        \begin{array}{cccc}
+                            \cos(\alpha)    & -\sin(\alpha) & 0 & 0 \\
+                            \sin(\alpha)    & \cos(\alpha)  & 0 & 0 \\
+                            0               & 0             & 1 & 0 \\
+                            0               & 0             & 0 & 1
+                        \end{array} 
+                    \right)
+        \end{equation*} 
 \end{frame} 
 
 \begin{frame}{Scaling Transformations} 
+    \showcode{scale.c} 
+    \begin{columns}[t]
+        \column{0.5\textwidth}
+            \begin{equation*}
+                S = \left(
+                        \begin{array}{cccc}
+                            x   & 0     & 0     & 0 \\
+                            0   & y     & 0     & 0 \\
+                            0   & 0     & z     & 0 \\
+                            0   & 0     & 0     & 1
+                        \end{array} 
+                    \right)
+            \end{equation*} 
+        \column{0.5\textwidth}
+            \begin{equation*}
+               S^{-1} = \left(
+                        \begin{array}{cccc}
+                            \frac{1}{x} & 0             & 0             & 0 \\
+                            0           & \frac{1}{y}   & 0             & 0 \\
+                            0           & 0             & 1             & 0 \\
+                            0           & 0             & \frac{1}{z}   & 1
+                        \end{array} 
+                    \right)
+            \end{equation*} 
+    \end{columns} 
+    \begin{equation*}
+        v' = S v
+    \end{equation*} 
 \end{frame} 
 
 \begin{frame}{Order of Transformations}
@@ -324,6 +431,18 @@
 \end{frame} 
 
 \begin{frame}{OpenGL Lighting} 
+    \begin{itemize} 
+        \item Eight available lights (individually toggled)
+        \item Lighting types:
+        \begin{itemize} 
+            \item Emitted
+            \item Ambient
+            \item Diffues
+            \item Specular
+        \end{itemize} 
+        \item Material colours and properties
+        \item Lighting demo
+    \end{itemize} 
 \end{frame} 
 
 \begin{frame}{Setting up an OpenGL Light}
@@ -334,6 +453,8 @@
 \end{frame} 
 
 \begin{frame}{Material Properties} 
+    \texttt{glMaterial\{if\}[v](GLenum face, GLenum pname, TYPE param);} 
+    \showcode{material.c} 
 \end{frame} 
 
 \begin{frame}{glMaterial Default Parameters} 
@@ -343,15 +464,27 @@
 \end{frame} 
 
 \begin{frame}{Normal Vectors} 
+    \showcode{normals.c} 
 \end{frame} 
 
 \begin{frame}{Normal Vectors (2)}
 \end{frame} 
 
 \begin{frame}{Hidden Surface Removal} 
+    In order for OpenGL to remove hidden surfaces, 
+    you need to enable depth testing for the depth buffer.
+    \showcode{hidden.c} 
 \end{frame} 
 
 \begin{frame}{GLUT} 
+    \begin{itemize} 
+        \item GLUT = GL UtilityLibrary
+        \item Easy, stable, simple to use library for showing OpenGL demos.
+        \item Limited to simple windows, mouse/keyboard input, and some simple 3D shapes.
+        \item Most OpenGL demos and code on th eweb use GLUT.
+        \item Default implementation in C
+             (bindings for many languages available: Python, Perl etc)
+    \end{itemize} 
 \end{frame} 
 
 \begin{frame}{Example GLUT Program in C} 
