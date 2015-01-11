@@ -87,7 +87,7 @@
 \title[OpenGL]{Introduction to OpenGL}
 \subtitle{Graphics and Computation} 
 \author{Michael Papasimeon} % \\
-\date{2005, 2006, 2007} 
+\date{2006, 2007, 2008} 
 
 \begin{document}
 
@@ -501,6 +501,28 @@
 
 \begin{frame}{Typical GLUT Display Function} 
     \showcode{display.c} 
+\end{frame} 
+
+\begin{frame}{GLUT on Unix (command line)}
+    \begin{block}{Compiling a GLUT Program on Unix/Linux}
+    \small
+    \texttt{gcc main.c -I/usr/X11R6/include -L/usr/X11R6/lib \\ -lGL -lGLU -lglut -lm}
+   \normalsize
+   \end{block} 
+
+    On Unix or Linux systems includes should be:
+    \showcode{unixincludes.c} 
+\end{frame} 
+
+\begin{frame}{GLUT on Mac OS X (command line) } 
+    \begin{block}{Compiling a GLUT Program on Mac OS X} 
+    \small
+    \texttt{gcc main.c -F/System/Library/Frameworks  \\ -framework GLUT -framework OpenGL}
+    \normalsize
+    \end{block} 
+
+    Using frameworks on Mac OS X, includes should be:
+    \showcode{macincludes.c} 
 \end{frame} 
 
 \begin{frame}{JOGL} 
