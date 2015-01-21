@@ -1,4 +1,4 @@
-\documentclass[xcolor=dvipsnames,t]{beamer} 
+\documentclass[aspectratio=1610,xcolor=dvipsnames,t]{beamer} 
 
 \usepackage{listings} 
 \usepackage{color} 
@@ -16,6 +16,7 @@
 \usepackage{helvet} 
 
 \usetheme{Madrid} 
+\useinnertheme{rectangles} 
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{blocks}[default] 
@@ -24,7 +25,8 @@
 %\setbeamercolor*{palette primary}{use=structure,fg=white,bg=green}
 %\usecolortheme[rgb={0.9,0.2,0.2}]{structure}
 %\usecolortheme[rgb={0.6,0.1,0.1}]{structure}
-\usecolortheme[rgb={0.4, 0.0, 0.4}]{structure} 
+%\usecolortheme[rgb={0.4, 0.0, 0.4}]{structure} 
+\usecolortheme[rgb={0.0, 0.5, 0.9}]{structure} 
 
 \usepackage{color}
 \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
@@ -83,16 +85,50 @@
                           \end{mdframed}% 
 }
 
+\newcommand{\showsmallcode}[1]{\begin{mdframed}[style=code] %
+        \lstinputlisting[basicstyle=\ttfamily\tiny]{#1}% 
+                          \end{mdframed}% 
+}
 
-\title[OpenGL]{Introduction to OpenGL}
+
+
+
+\title[Introduction to OpenGL]{Introduction to OpenGL \textregistered}
+\titlegraphic{\centering\includegraphics[width=0.3\textwidth]{opengl-logo}}
 \subtitle{Graphics and Computation} 
 \author{Michael Papasimeon} % \\
-\date{2006, 2007, 2008} 
+\date[2006,2007,2008]{12 March 2006\\
+      11 March 2007\\
+      11 March 2008} 
 
 \begin{document}
 
 \begin{frame}
-    \maketitle
+    \titlepage
+    \footnote{\tiny OpenGL® and the oval logo are trademarks or registered trademarks of Silicon Graphics, Inc. in the United States and/or other countries worldwide.} 
+\end{frame} 
+
+\begin{frame}{Notes}  
+    \begin{itemize} 
+    \item These slides were presented to a third year computer science class in
+        graphics and computation over a three year period (2006, 2007, 2008). 
+        The slides were the practical component introducing the students to
+        OpenGL as part of a longer course in computer graphics. 
+        The introductory OpenGL component was taught over two lectures, but
+        the students used OpenGL for the major project. 
+    \item There was some variation over the three years in which the material
+        was presented, including one year (2007) where Java was used with JOGL.
+        In 2006 and 2008 the course was taught in C using GLUT. 
+    \item The slides were originally done in PowerPoint and they have been
+        convertex to \LaTeX and Beamer. 
+    \end{itemize} 
+    \begin{alertblock}{OpenGL Version} 
+        Note that the OpenGL presented in these slides is pretty out of date.
+          It represents early OpenGL 1.1-1.4 and does not include anything from 
+          OpenGL 2.0 or greater, so this material should \textbf{not} be used
+          learn modern OpenGL is primarily provided here for historical
+          reference. 
+    \end{alertblock} 
 \end{frame} 
 
 \begin{frame}{Outline}
@@ -102,7 +138,7 @@
         \item Drawing
         \item Viewing and Transformation
         \item Lighting
-        \item GLUT and JOGL
+        \item GLUT 
         \item Resources
     \end{itemize} 
 \end{frame}
@@ -206,17 +242,33 @@
 
 \begin{frame}{\texttt{glBegin} Drawing Modes}  
     \begin{center} 
-         \includegraphics[width=0.7\textwidth]{glbegin} 
+         \includegraphics[width=0.5\textwidth]{glbegin} 
     \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Mixing Geometry with Colour} 
     Specifying vertices can be mixed with colour and other 
     types of commands for interesting drawing results.
-    \showcode{geomcolor.c} 
+    \begin{columns}[t]
+        \column{0.4\textwidth} 
+        \showcode{geomcolor.c} 
+        \column{0.6\textwidth} 
+        \begin{center}
+            \includegraphics[width=0.6\textwidth]{geom-color} 
+        \end{center} 
+    \end{columns} 
 \end{frame} 
 
 \begin{frame}{Viewing the Scene: The Camera}
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{camera} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{OpenGL Vertices} 
@@ -242,6 +294,12 @@
 \end{frame} 
 
 \begin{frame}{Vertex Transformations} 
+    \begin{center}
+        \includegraphics[width=\textwidth]{vertextransform} 
+    \end{center} 
+    \tiny
+    Diagram adapted from the OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Vertex Transformation as Matrix Multiplication} 
@@ -295,6 +353,12 @@
 
 \begin{frame}{Perspective Projection (glFrustrum)}
     \showcode{frustrum.c} 
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{frustrum} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Perspective Projection (gluPerspective) from GLU} 
@@ -304,16 +368,35 @@
         \item \texttt{aspect} : aspect ratio that determines the field of view in
           the x direction (ratio of width to height)
     \end{itemize} 
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{perspective} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Orthographics (Parallel) Projection - glOrtho} 
     \showcode{ortho.c} 
+     \begin{center}
+         \includegraphics[width=0.6\textwidth]{ortho} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{gluLookAt}
     Specifies the camera position, the point where the camera is pointing, 
     and the orientation vector of the camera.
     \showcode{lookat.c} 
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{lookat} 
+    \end{center} 
+    \tiny
+    Screenshot from Nate Robin's OpenGL Tutors
+    \url{https://user.xmission.com/~nate/tutors.html}
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Translation Transformation}
@@ -345,11 +428,23 @@
     \begin{equation*}
         v' = T v
     \end{equation*} 
+    \begin{center} 
+        \includegraphics[width=0.15\textwidth]{translate} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Rotation Transformations} 
     \showcode{rotate.c} 
     Specifies an angle and an axis (x,y,z) to rotate around.
+    \begin{center} 
+        \includegraphics[width=0.3\textwidth]{rotation} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Rotation Matrices} 
@@ -419,12 +514,30 @@
     \begin{equation*}
         v' = S v
     \end{equation*} 
+    \begin{center} 
+        \includegraphics[width=0.2\textwidth]{scaling} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Order of Transformations}
+   \begin{center} 
+       \includegraphics[width=0.7\textwidth]{order} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Transformations in Action}
+   \begin{center} 
+       \includegraphics[width=0.4\textwidth]{action} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{The Matrix Stack} 
@@ -433,7 +546,9 @@
         \column{0.5\textwidth} 
         \showcode{matrixstack.c} 
         \column{0.5\textwidth} 
-        Figure
+        \begin{center}
+            \includegraphics[width=0.5\textwidth]{stack} 
+        \end{center} 
     \end{columns} 
 \end{frame} 
 
@@ -457,6 +572,9 @@
 \end{frame} 
 
 \begin{frame}{glLight\{if\}[v](light, pname, param)}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{gllight} 
+    \end{center} 
 \end{frame} 
 
 \begin{frame}{Material Properties} 
@@ -465,16 +583,42 @@
 \end{frame} 
 
 \begin{frame}{glMaterial Default Parameters} 
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{materials}
+    \end{center}
 \end{frame} 
 
 \begin{frame}{Teapots Materials Example} 
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{teapots} 
+    \end{center} 
+    \tiny
+    Diagram: Copyright OpenGL Programming Guide. Addison-Wesley. 
+    \normalsize
 \end{frame} 
 
-\begin{frame}{Normal Vectors} 
+\begin{frame}{Normal Vectors}
+    \begin{center}
+        \includegraphics[width=\textwidth]{normalvectors} 
+    \end{center}
+\end{frame}
+
+\begin{frame}{Normal Vectors -- \texttt{glNormal()}} 
     \showcode{normals.c} 
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{smooth-vs-flat} 
+    \end{center} 
 \end{frame} 
 
-\begin{frame}{Normal Vectors (2)}
+
+\begin{frame}{Shading} 
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{shading} 
+    \end{center}
+    \tiny
+    Diagram from:
+    \url{http://www.codeguru.com/Cpp/G-M/opengl/article.php/c2681/} 
+    \normalsize
 \end{frame} 
 
 \begin{frame}{Hidden Surface Removal} 
@@ -495,11 +639,11 @@
 \end{frame} 
 
 \begin{frame}{Example GLUT Program in C} 
-    \showcode{glutmain.c} 
+    \showsmallcode{glutmain.c} 
 \end{frame} 
 
 \begin{frame}{Typical InitGL() Function} 
-    \showcode{initgl.c} 
+    \showsmallcode{initgl.c} 
 \end{frame} 
 
 \begin{frame}{Typical GLUT Reshape Function} 
@@ -534,9 +678,21 @@
 
 
 \begin{frame}{OpenGL Books} 
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{books} 
+    \end{center}
 \end{frame} 
 
 \begin{frame}{Resources} 
+    \begin{itemize} 
+        \item OpenGL Home Page \url{http://www.opengl.org}
+        \item OpenGL Tutors \url{http://www.xmission.com/~nate/tutors.html}
+        \item NeHe Tutorials: \url{http://nehe.gamedev.net}
+        \item OpenGL Red Book (Programming Manual) \url{http://www.glprogramming.com/red/}
+        \item OpenGL Blue Book (Reference Manual) \url{http://www.glprogramming.com/blue/}
+        \item Using GLUT with Visual C++ Express Edition 
+              \url{http://www.cs.rit.edu/~wrc/courses/common/cg1/doc/visual/GLUT_with_VCppEE.pdf}
+    \end{itemize}
 \end{frame} 
 
 \end{document}
